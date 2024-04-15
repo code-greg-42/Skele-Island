@@ -209,12 +209,16 @@ public class PlayerAttack : MonoBehaviour
         playerAnim.SetTrigger("buffSelf");
         damageBuffAnimationActive = true;
 
+        Debug.Log("Damage Buff Active!");
+
         // wait for animation to end
         yield return new WaitForSeconds(damageBuffAnimationTime);
         damageBuffAnimationActive = false;
 
         // wait for duration time and set bool back to ready
         yield return new WaitForSeconds(damageBuffDuration);
+
+        Debug.Log("Damage Buff Ended!");
         damageBuffReady = true;
     }
 }
