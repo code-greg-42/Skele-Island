@@ -173,7 +173,6 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
-            Debug.Log("Missed target with force pull!");
             return;
         }
 
@@ -182,7 +181,7 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Enemy enemy in FindObjectsOfType<Enemy>())
         {
-            if (enemy != null && Vector3.Distance(enemy.transform.position, pullPosition) <= forcePullRange)
+            if (enemy != null && !enemy.isBoss && Vector3.Distance(enemy.transform.position, pullPosition) <= forcePullRange)
             {
                 StartCoroutine(MoveEnemyToTarget(enemy, pullPosition));
             }

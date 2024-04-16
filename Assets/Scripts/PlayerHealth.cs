@@ -7,19 +7,45 @@ public class PlayerHealth : MonoBehaviour
     public float health = 100.0f;
     public float maxHealth = 100.0f;
 
+    [HideInInspector]
+    public bool isDying;
+
     [Header("References")]
-    public Animator anim;
-    public PlayerAttack playerAttack;
-    public PlayerMovement playerMovement;
+    [SerializeField] Animator anim;
+    [SerializeField] PlayerAttack playerAttack;
+    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] GameManager gameManager;
+
+    readonly float deathAnimationTime = 2.08375f;
 
     public void TakeDamage(float damage)
     {
         Debug.Log("player took damage!");
         health -= damage;
 
-        if (!playerAttack.isCasting && !playerMovement.isRolling)
+        if (health <= 0)
         {
-            anim.SetTrigger("takeDamage");
+            UIManager.Instance.UpdatePlayerHealthBar(0);
+            StartCoroutine(DeathCoroutine());
         }
+        else
+        {
+            UIManager.Instance.UpdatePlayerHealthBar(health / maxHealth);
+            if (!playerAttack.isCasting && !playerMovement.isRolling)
+            {
+                anim.SetTrigger("takeDamage");
+            }
+        }
+    }
+
+    IEnumerator DeathCoroutine()
+    {
+        // set bool to stop movement and play animation
+        isDying = true;
+        anim.SetTrigger("die");
+
+        // wait for animation to end and end game
+        yield return new WaitForSeconds(deathAnimationTime);
+        gameManager.EndGame();
     }
 }

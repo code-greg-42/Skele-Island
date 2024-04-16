@@ -38,6 +38,8 @@ public class Enemy : MonoBehaviour
     bool isTakingDamage;
     bool isDying;
 
+    public bool isBoss;
+
     void Awake()
     {
         player = GameObject.Find("PlayerObj").transform;
@@ -82,8 +84,11 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            // if alive, play damage animation
-            StartCoroutine(TakeDamageSequence());
+            if (!isBoss)
+            {
+                // if alive and not a boss, play damage animation
+                StartCoroutine(TakeDamageSequence());
+            }
         }
     }
 
@@ -111,11 +116,9 @@ public class Enemy : MonoBehaviour
     IEnumerator AttackSequence()
     {
         isAttacking = true;
-        // set destination to self to stop movement
-        //StopMoving();
 
         // rotate towards player and initiate attack animation
-        //transform.LookAt(player);
+        transform.LookAt(player);
         enemyAnim.SetTrigger("attack");
 
         // wait for windup of animation and set bool to allow determination of player being hit
