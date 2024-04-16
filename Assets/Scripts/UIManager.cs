@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI buffText;
     public TextMeshProUGUI forcePullChargeDisplay;
+    public TextMeshProUGUI damageBuffChargeDisplay;
 
     readonly int buffTextDuration = 3;
 
@@ -31,6 +32,11 @@ public class UIManager : MonoBehaviour
     public void UpdateForcePullCharges(int forcePullCharges)
     {
         forcePullChargeDisplay.text = "Pull Charges: " + forcePullCharges;
+    }
+
+    public void UpdateDamageBuffCharges(int damageBuffCharges)
+    {
+        damageBuffChargeDisplay.text = "Buff Charges: " + damageBuffCharges;
     }
 
     private IEnumerator DisplayMessageCoroutine(string message)

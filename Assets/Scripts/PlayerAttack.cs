@@ -16,14 +16,20 @@ public class PlayerAttack : MonoBehaviour
     public float forcePullRange;
     public float forcePullSpeed;
     public float forcePullCenterRadius;
-    public int forcePullCharges = 1;
     readonly float forcePullCooldown = 3.0f;
     bool forcePullReady = true;
 
     [HideInInspector]
+    public int forcePullCharges = 1;
+    [HideInInspector]
+    public int damageBuffCharges = 1;
+    [HideInInspector]
     public bool isCasting;
     [HideInInspector]
     public bool damageBuffAnimationActive;
+
+    // damage buff variables
+    readonly float damageBuffMultiplication = 4.0f;
     readonly float damageBuffDuration = 4.0f;
     readonly float damageBuffAnimationTime = 1.18f;
     bool damageBuffReady = true;
@@ -84,16 +90,21 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(forcePullKey) && forcePullReady && forcePullCharges > 0)
         {
             forcePullReady = false;
-            ForcePull();
 
             forcePullCharges -= 1;
             UIManager.Instance.UpdateForcePullCharges(forcePullCharges);
+
+            ForcePull();
             StartCoroutine(ResetForcePull());
         }
 
-        if (Input.GetKeyDown(damageBuffKey) && damageBuffReady && playerMovement.grounded && !isCasting && !playerMovement.isRolling)
+        if (Input.GetKeyDown(damageBuffKey) && damageBuffReady && playerMovement.grounded && !isCasting && !playerMovement.isRolling && damageBuffCharges > 0)
         {
             damageBuffReady = false;
+
+            damageBuffCharges -= 1;
+            UIManager.Instance.UpdateDamageBuffCharges(damageBuffCharges);
+
             StartCoroutine(DamageBuffCoroutine());
         }
     }
@@ -206,19 +217,23 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator DamageBuffCoroutine()
     {
+        // start animation and set bool
         playerAnim.SetTrigger("buffSelf");
         damageBuffAnimationActive = true;
 
-        Debug.Log("Damage Buff Active!");
+        // save original attack damage value to reassign at end
+        float originalAttackDamage = attackDamage;
 
-        // wait for animation to end
+        // increase attack damage by buff multiplication amount
+        attackDamage *= damageBuffMultiplication;
+
+        // wait for animation to end and set bool to re-allow casting
         yield return new WaitForSeconds(damageBuffAnimationTime);
         damageBuffAnimationActive = false;
 
-        // wait for duration time and set bool back to ready
+        // wait for duration time and reset bool and original attack damage
         yield return new WaitForSeconds(damageBuffDuration);
-
-        Debug.Log("Damage Buff Ended!");
+        attackDamage = originalAttackDamage;
         damageBuffReady = true;
     }
 }

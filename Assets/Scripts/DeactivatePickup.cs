@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeactivatePickup : MonoBehaviour
 {
-    readonly float lifetime = 15.0f;
+    readonly float lifetime = 10.0f;
     float aliveTimer = 0f;
 
     readonly float attackDamageIncrease = 5.0f;
@@ -22,7 +22,8 @@ public class DeactivatePickup : MonoBehaviour
         IncreaseSpeed,
         IncreaseDamage,
         IncreaseProjectileSize,
-        IncreaseForcePullCharge
+        IncreaseForcePullCharge,
+        IncreaseDamageBuffCharge
     }
 
     private void Awake()
@@ -72,11 +73,9 @@ public class DeactivatePickup : MonoBehaviour
                 if (playerHealth.health < playerHealth.maxHealth)
                 {
                     playerHealth.health = playerHealth.maxHealth;
-                    Debug.Log("Health Recovered!");
                     buffMessage = "Health Recovered!";
                 } else
                 {
-                    Debug.Log("Player already full health!");
                     buffMessage = "Health already at max!";
                 }
                 break;
@@ -85,11 +84,9 @@ public class DeactivatePickup : MonoBehaviour
                 if (playerMovement.moveSpeed < playerMovement.moveSpeedMax)
                 {
                     playerMovement.moveSpeed += moveSpeedIncrease;
-                    Debug.Log("Speed Increased!");
                     buffMessage = "Speed Increased!";
                 } else
                 {
-                    Debug.Log("Move Speed at Maximum!");
                     buffMessage = "Move Speed at Maximum!";
                 }
                 break;
@@ -98,11 +95,9 @@ public class DeactivatePickup : MonoBehaviour
                 if (playerAttack.attackDamage < playerAttack.attackDamageMax)
                 {
                     playerAttack.attackDamage += attackDamageIncrease;
-                    Debug.Log("Attack Damage Increased!");
                     buffMessage = "Attack Damage Increased!";
                 } else
                 {
-                    Debug.Log("Attack Damage at Maximum!");
                     buffMessage = "Attack Damage at Maximum!";
                 }
                 break;
@@ -111,11 +106,9 @@ public class DeactivatePickup : MonoBehaviour
                 if (playerAttack.minProjectileSize < playerAttack.minProjectileSizeMax)
                 {
                     playerAttack.minProjectileSize += projectileSizeIncrease;
-                    Debug.Log("Projectile Size Increased!");
                     buffMessage = "Projectile Size Increased!";
                 } else
                 {
-                    Debug.Log("Projectile Size at Maximum!");
                     buffMessage = "Projectile Size at Maximum!";
                 }
                 break;
@@ -123,8 +116,13 @@ public class DeactivatePickup : MonoBehaviour
             case BuffType.IncreaseForcePullCharge:
                 playerAttack.forcePullCharges += 1;
                 UIManager.Instance.UpdateForcePullCharges(playerAttack.forcePullCharges);
-                Debug.Log("Force Pull Charges Increased!");
                 buffMessage = "Force Pull Charges Increased!";
+                break;
+
+            case BuffType.IncreaseDamageBuffCharge:
+                playerAttack.damageBuffCharges += 1;
+                UIManager.Instance.UpdateDamageBuffCharges(playerAttack.damageBuffCharges);
+                buffMessage = "Damage Buff Charges Increased!";
                 break;
         }
 
