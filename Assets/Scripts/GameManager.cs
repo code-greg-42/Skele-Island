@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int enemiesPerWave = 5;
+    int enemiesPerWave = 5;
     int waveNumber;
 
+    readonly int finalWave = 5;
     readonly float enemySpeedMin = 3.5f;
     readonly float enemySpeedMax = 10.5f;
     readonly float spawnBoundary = 36.0f;
@@ -14,10 +15,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (EnemyPool.Instance.isPoolLoaded && !EnemyPool.Instance.IsAnyEnemyActive())
+        if (waveNumber <= finalWave)
         {
-            waveNumber++;
-            SpawnNewWave(waveNumber * enemiesPerWave);
+            if (EnemyPool.Instance.isPoolLoaded && !EnemyPool.Instance.IsAnyEnemyActive())
+            {
+                waveNumber++;
+                if (waveNumber <= finalWave)
+                {
+                    enemiesPerWave *= 2;
+                    SpawnNewWave(enemiesPerWave);
+                }
+                else
+                {
+                    Debug.Log("Game Over!");
+                }
+            }
         }
     }
 
