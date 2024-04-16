@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
                 waveNumber++;
                 if (waveNumber <= finalWave)
                 {
+                    UIManager.Instance.UpdateWaveNumber(waveNumber, finalWave);
                     enemiesPerWave *= 2;
                     SpawnNewWave(enemiesPerWave);
                 }

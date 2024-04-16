@@ -7,9 +7,11 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
+    [Header("UI References")]
     public TextMeshProUGUI buffText;
     public TextMeshProUGUI forcePullChargeDisplay;
     public TextMeshProUGUI damageBuffChargeDisplay;
+    public TextMeshProUGUI waveNumberDisplay;
 
     readonly int buffTextDuration = 3;
 
@@ -37,6 +39,11 @@ public class UIManager : MonoBehaviour
     public void UpdateDamageBuffCharges(int damageBuffCharges)
     {
         damageBuffChargeDisplay.text = "Buff Charges: " + damageBuffCharges;
+    }
+
+    public void UpdateWaveNumber(int waveNumber, int finalWaveNumber)
+    {
+        waveNumberDisplay.text = "Wave: " + waveNumber + "/" + finalWaveNumber;
     }
 
     private IEnumerator DisplayMessageCoroutine(string message)
