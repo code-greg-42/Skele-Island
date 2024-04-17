@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    EndGame(true);
                     Debug.Log("Game Over");
                 }
             }

@@ -73,6 +73,7 @@ public class DeactivatePickup : MonoBehaviour
                 if (playerHealth.health < playerHealth.maxHealth)
                 {
                     playerHealth.health = playerHealth.maxHealth;
+                    UIManager.Instance.UpdatePlayerHealthBar(1);
                     buffMessage = "Health Recovered!";
                 } else
                 {
