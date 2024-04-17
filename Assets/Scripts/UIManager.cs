@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI damageBuffChargeDisplay;
     public TextMeshProUGUI waveNumberDisplay;
     public Image playerHealthBar;
+    public GameObject gameOverMenu;
+    public TextMeshProUGUI gameResultText;
 
     readonly int buffTextDuration = 3;
 
@@ -58,6 +60,21 @@ public class UIManager : MonoBehaviour
     public void UpdatePlayerHealthBar(float fillAmount)
     {
         playerHealthBar.fillAmount = fillAmount;
+    }
+
+    public void ActivateGameOverMenu()
+    {
+        gameOverMenu.SetActive(true);
+    }
+
+    public void ChangeGameResultText(string message, bool win = false)
+    {
+        gameResultText.text = message;
+
+        if (win)
+        {
+            gameResultText.color = Color.green;
+        }
     }
 
     private IEnumerator DisplayMessageCoroutine(string message)

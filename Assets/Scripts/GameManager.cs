@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,11 +45,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame()
+    public void EndGame(bool win = false)
     {
         Time.timeScale = 0;
-        // add game logic later
         Debug.Log("Game Over");
+
+        if (win)
+        {
+            UIManager.Instance.ChangeGameResultText("You Win!", win);
+        }
+        UIManager.Instance.ActivateGameOverMenu();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void SpawnNewWave(int enemiesToSpawn)
