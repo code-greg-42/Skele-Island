@@ -48,18 +48,29 @@ public class GameManager : MonoBehaviour
 
     public void EndGame(bool win = false)
     {
+        // pause the game
         Time.timeScale = 0;
         Debug.Log("Game Over");
 
+        // unlock the cursor and make it visible
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        // change text if the player won
         if (win)
         {
             UIManager.Instance.ChangeGameResultText("You Win!", win);
         }
+        // activate game over menu
         UIManager.Instance.ActivateGameOverMenu();
     }
 
     public void RestartGame()
     {
+        // reset the time scale to resume normal game speed
+        Time.timeScale = 1;
+
+        // reload current scene to replay game
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

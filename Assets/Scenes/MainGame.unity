@@ -2152,7 +2152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.075686626, y: 0.09825223, z: -0.0074944547, w: 0.9922509}
+  m_LocalRotation: {x: 0.07568663, y: 0.0982522, z: -0.007494452, w: 0.9922509}
   m_LocalPosition: {x: 0, y: 3, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4392,6 +4392,7 @@ MonoBehaviour:
   mainCam: {fileID: 963194227}
   playerAnim: {fileID: 95706291614279188}
   playerMovement: {fileID: 1686115185}
+  playerHealth: {fileID: 1686115187}
 --- !u!114 &1686115187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5546,7 +5547,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971304772}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.075686626, y: 0.09825223, z: -0.0074944547, w: 0.9922509}
+  m_LocalRotation: {x: 0.07568663, y: 0.0982522, z: -0.0074944533, w: 0.9922509}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

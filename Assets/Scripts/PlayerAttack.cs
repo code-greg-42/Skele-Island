@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
 
     // damage buff variables
     readonly float damageBuffMultiplication = 4.0f;
-    readonly float damageBuffDuration = 4.0f;
+    readonly float damageBuffDuration = 5.0f;
     readonly float damageBuffAnimationTime = 1.18f;
     bool damageBuffReady = true;
 
@@ -56,11 +56,12 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] Camera mainCam;
     [SerializeField] Animator playerAnim;
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerHealth playerHealth;
 
     // Update is called once per frame
     void Update()
     {
-        if (playerMovement.grounded && !damageBuffAnimationActive)
+        if (playerMovement.grounded && !damageBuffAnimationActive && !playerHealth.isDying)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -87,7 +88,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(forcePullKey) && forcePullReady && forcePullCharges > 0)
+        if (Input.GetKeyDown(forcePullKey) && forcePullReady && forcePullCharges > 0 && !playerHealth.isDying)
         {
             forcePullReady = false;
 
@@ -98,7 +99,7 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(ResetForcePull());
         }
 
-        if (Input.GetKeyDown(damageBuffKey) && damageBuffReady && playerMovement.grounded && !isCasting && !playerMovement.isRolling && damageBuffCharges > 0)
+        if (Input.GetKeyDown(damageBuffKey) && damageBuffReady && playerMovement.grounded && !isCasting && !playerMovement.isRolling && damageBuffCharges > 0 && !playerHealth.isDying)
         {
             damageBuffReady = false;
 

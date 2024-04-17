@@ -31,20 +31,23 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("player took damage!");
-        health -= damage;
+        if (!isDying)
+        {
+            Debug.Log("player took damage!");
+            health -= damage;
 
-        if (health <= 0)
-        {
-            UIManager.Instance.UpdatePlayerHealthBar(0);
-            StartCoroutine(DeathCoroutine());
-        }
-        else
-        {
-            UIManager.Instance.UpdatePlayerHealthBar(health / maxHealth);
-            if (!playerAttack.isCasting && !playerMovement.isRolling)
+            if (health <= 0)
             {
-                anim.SetTrigger("takeDamage");
+                UIManager.Instance.UpdatePlayerHealthBar(0);
+                StartCoroutine(DeathCoroutine());
+            }
+            else
+            {
+                UIManager.Instance.UpdatePlayerHealthBar(health / maxHealth);
+                if (!playerAttack.isCasting && !playerMovement.isRolling)
+                {
+                    anim.SetTrigger("takeDamage");
+                }
             }
         }
     }
