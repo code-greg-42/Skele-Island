@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     // attribute maximums
     [HideInInspector]
-    public float moveSpeedMax = 15.0f;
+    public float moveSpeedMax = 13.0f;
 
     [HideInInspector]
     public bool isRolling;

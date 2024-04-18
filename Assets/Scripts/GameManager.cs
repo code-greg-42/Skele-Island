@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
         if (win)
         {
             Debug.Log("You win!");
+            UIManager.Instance.UpdateTotalTimeText();
             UIManager.Instance.ActivateWinMenu();
         }
         else

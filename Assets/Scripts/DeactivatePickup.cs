@@ -8,7 +8,7 @@ public class DeactivatePickup : MonoBehaviour
     float aliveTimer = 0f;
 
     readonly float attackDamageIncrease = 5.0f;
-    readonly float moveSpeedIncrease = 1.0f;
+    readonly float moveSpeedIncrease = 0.5f;
     readonly float projectileSizeIncrease = 0.1f;
 
     PlayerAttack playerAttack;

@@ -13,11 +13,15 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI forcePullChargeDisplay;
     public TextMeshProUGUI damageBuffChargeDisplay;
     public TextMeshProUGUI waveNumberDisplay;
+    public TextMeshProUGUI gameTimerText;
+    public TextMeshProUGUI totalTimeText;
     public Image playerHealthBar;
     public GameObject gameOverMenu;
     public GameObject winMenu;
 
     readonly int buffTextDuration = 3;
+
+    int gameTimer;
 
     private Coroutine buffMessageCoroutine;
 
@@ -25,7 +29,12 @@ public class UIManager : MonoBehaviour
     {
         Instance = this;
     }
-    
+
+    private void Start()
+    {
+        StartCoroutine(StartGameTimer());
+    }
+
     public void DisplayBuffMessage(string message)
     {
         if (buffMessageCoroutine != null)
@@ -62,6 +71,15 @@ public class UIManager : MonoBehaviour
         playerHealthBar.fillAmount = fillAmount;
     }
 
+    public void UpdateTotalTimeText()
+    {
+        // get minutes and seconds of timer
+        int minutes = gameTimer / 60;
+        int seconds = gameTimer % 60;
+
+        totalTimeText.text = string.Format("Total Time: {0:00}:{1:00}", minutes, seconds);
+    }
+
     public void ActivateGameOverMenu()
     {
         gameOverMenu.SetActive(true);
@@ -77,5 +95,22 @@ public class UIManager : MonoBehaviour
         buffText.text = message;
         yield return new WaitForSeconds(buffTextDuration);
         buffText.text = "";
+    }
+
+    private IEnumerator StartGameTimer()
+    {
+        while (true)
+        {
+            // increment timer each second
+            yield return new WaitForSeconds(1);
+            gameTimer++;
+
+            // calculate minutes and seconds
+            int minutes = gameTimer / 60;
+            int seconds = gameTimer % 60;
+
+            // format string in mm:ss format
+            gameTimerText.text = string.Format("Time Elapsed: {0:00}:{1:00}", minutes, seconds);
+        }
     }
 }
