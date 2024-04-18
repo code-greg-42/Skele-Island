@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI waveNumberDisplay;
     public Image playerHealthBar;
     public GameObject gameOverMenu;
-    public TextMeshProUGUI gameResultText;
+    public GameObject winMenu;
 
     readonly int buffTextDuration = 3;
 
@@ -67,14 +67,9 @@ public class UIManager : MonoBehaviour
         gameOverMenu.SetActive(true);
     }
 
-    public void ChangeGameResultText(string message, bool win = false)
+    public void ActivateWinMenu()
     {
-        gameResultText.text = message;
-
-        if (win)
-        {
-            gameResultText.color = Color.green;
-        }
+        winMenu.SetActive(true);
     }
 
     private IEnumerator DisplayMessageCoroutine(string message)

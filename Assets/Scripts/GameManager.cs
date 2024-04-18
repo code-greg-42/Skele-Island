@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     int enemiesPerWave = 5;
+
+    // only set this for testing
     int waveNumber;
 
     [HideInInspector]
@@ -18,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     readonly float bossSizeIncrease = 2.0f;
     readonly float bossAttackDamage = 100.0f;
+
+    // change this only for testing -- normal value 2000
     readonly float bossHealth = 2000.0f;
 
     private void Start()
@@ -27,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (waveNumber <= finalWave)
+        if (isGameActive)
         {
             if (EnemyPool.Instance.isPoolLoaded && !EnemyPool.Instance.IsAnyEnemyActive())
             {
@@ -47,7 +51,6 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     EndGame(true);
-                    Debug.Log("Game Over");
                 }
             }
         }
@@ -60,19 +63,22 @@ public class GameManager : MonoBehaviour
 
         // pause the game
         Time.timeScale = 0;
-        Debug.Log("Game Over");
 
         // unlock the cursor and make it visible
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // change text if the player won
+        // bring up win or loss menu based on bool
         if (win)
         {
-            UIManager.Instance.ChangeGameResultText("You Win!", win);
+            Debug.Log("You win!");
+            UIManager.Instance.ActivateWinMenu();
         }
-        // activate game over menu
-        UIManager.Instance.ActivateGameOverMenu();
+        else
+        {
+            Debug.Log("You lose!");
+            UIManager.Instance.ActivateGameOverMenu();
+        }
     }
 
     public void RestartGame()
