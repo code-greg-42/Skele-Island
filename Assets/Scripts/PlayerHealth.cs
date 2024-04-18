@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
     public float health = 100.0f;
     public float maxHealth = 100.0f;
 
-    readonly float boundary = -30.0f;
+    readonly float boundary = -15.0f;
 
     [HideInInspector]
     public bool isDying;
@@ -23,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
     private void Update()
     {
         // end game if player falls off the edge
-        if (transform.position.y < boundary)
+        if (gameManager.isGameActive && transform.position.y < boundary)
         {
             gameManager.EndGame();
         }

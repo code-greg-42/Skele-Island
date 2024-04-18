@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeactivateProjectile : MonoBehaviour
 {
-    readonly float maxTravelDistance = 50.0f;
+    readonly float maxTravelDistance = 75.0f;
     readonly float explosionRadius = 2.0f;
 
     public float attackDamage = 50.0f;

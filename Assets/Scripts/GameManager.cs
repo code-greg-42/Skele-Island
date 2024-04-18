@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     int enemiesPerWave = 5;
     int waveNumber;
 
+    [HideInInspector]
+    public bool isGameActive;
+
     readonly int finalWave = 5;
     readonly float enemySpeedMin = 3.5f;
     readonly float enemySpeedMax = 14.0f;
@@ -17,7 +20,11 @@ public class GameManager : MonoBehaviour
     readonly float bossAttackDamage = 100.0f;
     readonly float bossHealth = 2000.0f;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        isGameActive = true;
+    }
+
     void Update()
     {
         if (waveNumber <= finalWave)
@@ -48,6 +55,9 @@ public class GameManager : MonoBehaviour
 
     public void EndGame(bool win = false)
     {
+        // set game bool to false
+        isGameActive = false;
+
         // pause the game
         Time.timeScale = 0;
         Debug.Log("Game Over");
