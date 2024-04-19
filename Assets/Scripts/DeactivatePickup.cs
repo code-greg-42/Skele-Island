@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeactivatePickup : MonoBehaviour
 {
-    readonly float lifetime = 10.0f;
+    readonly float lifetime = 12.5f;
     float aliveTimer = 0f;
 
     readonly float attackDamageIncrease = 5.0f;

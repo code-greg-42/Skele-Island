@@ -9,8 +9,11 @@ public class PlayerAttack : MonoBehaviour
     public float attackForce;
     public float attackDamage = 50.0f;
 
+    // private attack variables
     readonly float castTime = 0.15f;
+    readonly float attackAnimationTime = 0.54882352941f;
     float buttonHoldTime;
+    bool attackReady = true;
 
     [Header("Force Pull Variables")]
     public float forcePullRange;
@@ -19,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
     readonly float forcePullCooldown = 3.0f;
     bool forcePullReady = true;
 
+    // variables used in other scripts
     [HideInInspector]
     public int forcePullCharges = 1;
     [HideInInspector]
@@ -61,7 +65,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerMovement.grounded && !damageBuffAnimationActive && !playerHealth.isDying)
+        if (playerMovement.grounded && !damageBuffAnimationActive && !playerHealth.isDying && attackReady)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -82,9 +86,11 @@ public class PlayerAttack : MonoBehaviour
                 {
                     Shoot(buttonHoldTime);
                 }
+                attackReady = false;
                 isCasting = false;
                 playerAnim.SetBool("isCasting", false);
                 buttonHoldTime = 0f;
+                StartCoroutine(ResetMainAttack());
             }
         }
         
@@ -213,6 +219,12 @@ public class PlayerAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(forcePullCooldown);
         forcePullReady = true;
+    }
+
+    IEnumerator ResetMainAttack()
+    {
+        yield return new WaitForSeconds(attackAnimationTime);
+        attackReady = true;
     }
 
     IEnumerator DamageBuffCoroutine()
