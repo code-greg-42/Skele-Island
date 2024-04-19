@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     readonly int finalWave = 5;
     readonly float enemySpeedMin = 3.5f;
-    readonly float enemySpeedMax = 12.0f;
+    readonly float enemySpeedMax = 10.5f;
     readonly float spawnBoundary = 36.0f;
 
     readonly float bossSpeed = 5.0f;
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     readonly float bossAttackDamage = 100.0f;
 
     // change this only for testing -- normal value 10000
-    readonly float bossHealth = 10000.0f;
+    readonly float bossHealth = 8000.0f;
 
     private void Start()
     {
