@@ -15,14 +15,15 @@ public class GameManager : MonoBehaviour
 
     readonly int finalWave = 5;
     readonly float enemySpeedMin = 3.5f;
-    readonly float enemySpeedMax = 14.0f;
+    readonly float enemySpeedMax = 12.0f;
     readonly float spawnBoundary = 36.0f;
 
+    readonly float bossSpeed = 5.0f;
     readonly float bossSizeIncrease = 2.0f;
     readonly float bossAttackDamage = 100.0f;
 
-    // change this only for testing -- normal value 2000
-    readonly float bossHealth = 2000.0f;
+    // change this only for testing -- normal value 10000
+    readonly float bossHealth = 10000.0f;
 
     private void Start()
     {
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
                 else if (waveNumber == finalWave + 1)
                 {
                     UIManager.Instance.UpdateWaveNumber(waveNumber, finalWave, true);
+                    UIManager.Instance.ActivateBossHealthBar();
                     SpawnBoss();
                     Debug.Log("Boss spawned!");
                 }
@@ -127,13 +129,14 @@ public class GameManager : MonoBehaviour
                 enemyScript.isBoss = true;
 
                 // set min speed to navmeshagent speed value
-                enemyScript.navMeshAgent.speed = enemySpeedMin;
-                enemyScript.navMeshAgent.speed = enemySpeedMin * 1.5f;
+                enemyScript.navMeshAgent.speed = bossSpeed;
+                enemyScript.navMeshAgent.speed = bossSpeed * 1.5f;
 
                 // set damage, range and health values to boss level
                 enemyScript.attackRange *= bossSizeIncrease;
                 enemyScript.attackDamage = bossAttackDamage;
                 enemyScript.health = bossHealth;
+                enemyScript.maxHealth = bossHealth;
             }
             enemy.SetActive(true);
         }

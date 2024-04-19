@@ -80,6 +80,10 @@ public class Enemy : MonoBehaviour
         // if health drops to zero or below, start the death sequence
         if (health <= 0)
         {
+            if (isBoss)
+            {
+                UIManager.Instance.UpdateBossHealthBar(0);
+            }
             StartCoroutine(DeathSequence());
         }
         else
@@ -88,6 +92,10 @@ public class Enemy : MonoBehaviour
             {
                 // if alive and not a boss, play damage animation
                 StartCoroutine(TakeDamageSequence());
+            }
+            else
+            {
+                UIManager.Instance.UpdateBossHealthBar(health / maxHealth);
             }
         }
     }
