@@ -17,9 +17,12 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI totalTimeText;
     public Image playerHealthBar;
     public Image bossHealthBar;
+    public GameObject playerHealthText;
+    public GameObject playerHealthBarBackground;
     public GameObject bossHealthBarBackground;
     public GameObject gameOverMenu;
     public GameObject winMenu;
+    public GameObject startMenu;
 
     readonly int buffTextDuration = 3;
 
@@ -30,11 +33,6 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-
-    private void Start()
-    {
-        StartCoroutine(StartGameTimer());
     }
 
     public void DisplayBuffMessage(string message)
@@ -100,6 +98,18 @@ public class UIManager : MonoBehaviour
     public void ActivateWinMenu()
     {
         winMenu.SetActive(true);
+    }
+
+    public void ActivateInGameUI()
+    {
+        startMenu.SetActive(false);
+        forcePullChargeDisplay.gameObject.SetActive(true);
+        damageBuffChargeDisplay.gameObject.SetActive(true);
+        waveNumberDisplay.gameObject.SetActive(true);
+        gameTimerText.gameObject.SetActive(true);
+        playerHealthText.SetActive(true);
+        playerHealthBarBackground.SetActive(true);
+        StartCoroutine(StartGameTimer());
     }
 
     private IEnumerator DisplayMessageCoroutine(string message)

@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        isGameActive = true;
+        Time.timeScale = 0;
+        isGameActive = false;
     }
 
     void Update()
@@ -86,11 +87,18 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        // reset the time scale to resume normal game speed
-        Time.timeScale = 1;
-
         // reload current scene to replay game
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void StartGame()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        UIManager.Instance.ActivateInGameUI();
+        isGameActive = true;
+        Time.timeScale = 1;
     }
 
     void SpawnNewWave(int enemiesToSpawn)

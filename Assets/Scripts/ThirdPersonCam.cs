@@ -9,12 +9,6 @@ public class ThirdPersonCam : MonoBehaviour
     [SerializeField] Transform playerObj;
     [SerializeField] Transform combatLookAt;
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
     void Update()
     {
         Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
