@@ -211,8 +211,8 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // reset bool to allow for continued movement
-        enemy.isBeingPulled = false;
         enemy.navMeshAgent.enabled = true;
+        enemy.isBeingPulled = false;
     }
 
     IEnumerator ResetForcePull()
