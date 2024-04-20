@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Header("Health Variables")]
     public float health = 100.0f;
     public float maxHealth = 100.0f;
-
-    readonly float boundary = -15.0f;
 
     [HideInInspector]
     public bool isDying;
@@ -18,7 +17,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] GameManager gameManager;
 
-    readonly float deathAnimationTime = 2.08375f;
+    readonly float boundary = -15.0f; // boundary for checking if player has fallen off the edge
+    readonly float deathAnimationTime = 2.08375f; // time it takes for death animation to play fully
 
     private void Update()
     {
@@ -36,6 +36,7 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("player took damage!");
             health -= damage;
 
+            // if health reaches 0, update health bar and start dying sequence
             if (health <= 0)
             {
                 UIManager.Instance.UpdatePlayerHealthBar(0);
@@ -43,7 +44,10 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
+                // update health bar to reflect current health
                 UIManager.Instance.UpdatePlayerHealthBar(health / maxHealth);
+
+                // trigger take damage animation unless player is casting or rolling
                 if (!playerAttack.isCasting && !playerMovement.isRolling)
                 {
                     anim.SetTrigger("takeDamage");

@@ -95,6 +95,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
+                // update boss healthbar with current health
                 UIManager.Instance.UpdateBossHealthBar(health / maxHealth);
             }
         }
@@ -102,18 +103,23 @@ public class Enemy : MonoBehaviour
 
     public void StopMoving()
     {
+        // set destination to self to prevent further movement
         navMeshAgent.SetDestination(transform.position);
+        // stop any current movement by setting velocity to 0
         navMeshAgent.velocity = Vector3.zero;
     }
 
     private void DropPickup()
     {
+        // get random value between 0 and 1
         float randomRoll = Random.value;
         if (randomRoll < pickupDropRate)
         {
+            // get pickup from pickup pool
             GameObject pickup = PickupPool.Instance.GetPooledPickup();
             if (pickup != null)
             {
+                // drop pickup on dead enemy, using the pickup prefab's y position to ensure correct visibility
                 Vector3 dropPosition = new(transform.position.x, pickup.transform.position.y, transform.position.z);
                 pickup.transform.position = dropPosition;
                 pickup.SetActive(true);

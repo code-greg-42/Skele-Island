@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
 
-    readonly float castingSpeedReduction = 0.35f;
-    readonly float rollSpeedMultiplier = 2.3f;
-    readonly float rollDuration = 0.8f;
-    readonly float rollCooldown = 2.0f;
+    readonly float castingSpeedReduction = 0.35f; // used to reduce speed of player while casting animation is active
+
+    // roll variables
+    readonly float rollSpeedMultiplier = 2.3f; // influences player movement speed during roll ability
+    readonly float rollDuration = 0.8f; // used to correctly time the movement speed increase during roll
+    readonly float rollCooldown = 2.0f; // used to prevent spamming of roll
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -33,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     // attribute maximums
     [HideInInspector]
-    public float moveSpeedMax = 13.0f;
+    public float moveSpeedMax = 13.0f; // caps movement speed increases from pickups
 
     [HideInInspector]
     public bool isRolling;
@@ -64,9 +66,12 @@ public class PlayerMovement : MonoBehaviour
     {
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+
+        // get inputs and control speed from going above the max
         MyInput();
         SpeedControl();
 
+        // set drag if player on the ground
         if (grounded)
         {
             rb.drag = groundDrag;
@@ -83,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyInput()
     {
+        // get user inputs
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
@@ -125,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
             }
         } else
         {
+            // move based on air multiplier
             rb.AddForce(10f * airMultiplier * moveSpeed * moveDirection.normalized, ForceMode.Force);
         }
     }

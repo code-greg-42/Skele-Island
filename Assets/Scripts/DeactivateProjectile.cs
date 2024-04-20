@@ -13,6 +13,7 @@ public class DeactivateProjectile : MonoBehaviour
 
     void FixedUpdate()
     {
+        // deactivate projectile if it exceeds the maximum travel distance
         if ((originPosition - transform.position).sqrMagnitude > maxTravelDistance * maxTravelDistance)
         {
             Deactivate();
@@ -21,12 +22,16 @@ public class DeactivateProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // handle collision with enemy objects
         if (other.CompareTag("Enemy"))
         {
+            // log damage and projectile scale for debugging
             Debug.Log("Hit enemy! Scale: " + transform.localScale.x + " Damage: " + transform.localScale.x * attackDamage);
+
+            // apply damage to the enemy based on scale of the projectile
             if (other.gameObject.TryGetComponent<Enemy>(out var enemy))
             {
-                enemy.TakeDamage(attackDamage * transform.localScale.x); // change this later based on size of projectile
+                enemy.TakeDamage(attackDamage * transform.localScale.x);
             }
         }
 
@@ -38,11 +43,12 @@ public class DeactivateProjectile : MonoBehaviour
             {
                 if (collider.TryGetComponent<Enemy>(out var enemy))
                 {
-                    enemy.TakeDamage(attackDamage * transform.localScale.x); // Apply damage to other enemies within the explosion radius
+                    enemy.TakeDamage(attackDamage * transform.localScale.x);
                 }
             }
         }
 
+        // deactivate projectile after triggering
         Deactivate();
     }
 
@@ -51,6 +57,7 @@ public class DeactivateProjectile : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    // used to be able to correctly set origin of projectile with each use
     public void SetOrigin(Vector3 origin)
     {
         originPosition = origin;
