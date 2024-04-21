@@ -5,21 +5,25 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    Transform player;
+    [Header("Attack Variables")]
     public float attackRange = 2.0f;
     public float attackDamage = 10.0f;
+
+    [Header("Health Variables")]
     public float health = 100.0f;
     public float maxHealth = 100.0f;
     public float pickupDropRate = 0.25f;
 
     [HideInInspector]
-    public bool isAttacking;
+    public bool isAttacking; // for preventing other actions while attacking
     [HideInInspector]
-    public bool isMidSwing;
+    public bool isMidSwing; // for establishing if an attack is in position to hit a player
     [HideInInspector]
-    public bool isBeingPulled;
+    public bool isBeingPulled; // for preventing rogue movements while enemy is under the effect of a force pull
     [HideInInspector]
-    public bool playerHit;
+    public bool playerHit; // for establishing if player has been hit by an attack
+    [HideInInspector]
+    public bool isBoss; // for changing take damage effect if enemy is a boss
 
     [Header("References")]
     public ParticleSystem fireParticleSystem;
@@ -27,18 +31,20 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public NavMeshAgent navMeshAgent;
 
+    // private references
+    Transform player;
     Animator enemyAnim;
 
+    // animation time variables
     readonly float deathAnimationTime = 2.167f;
     readonly float attackAnimationWindupTime = 0.8f;
     readonly float attackAnimationSwingTime = 1.06f;
     readonly float attackAnimationTotalTime = 2.767f;
     readonly float takeDamageAnimationTime = 0.833f;
 
+    // used for preventing movement while enemy is dying or taking damage
     bool isTakingDamage;
     bool isDying;
-
-    public bool isBoss;
 
     void Awake()
     {

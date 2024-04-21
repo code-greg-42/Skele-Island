@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
     public GameObject winMenu;
     public GameObject startMenu;
 
-    readonly int buffTextDuration = 3;
+    readonly int buffTextDuration = 3; // time that the UI component for buff messages will display what buff was picked up
 
     int gameTimer;
 
@@ -82,6 +82,7 @@ public class UIManager : MonoBehaviour
         int minutes = gameTimer / 60;
         int seconds = gameTimer % 60;
 
+        // format string in mm:ss format
         totalTimeText.text = string.Format("Total Time: {0:00}:{1:00}", minutes, seconds);
     }
 
@@ -102,13 +103,16 @@ public class UIManager : MonoBehaviour
 
     public void ActivateInGameUI()
     {
+        // hide the start menu
         startMenu.SetActive(false);
-        forcePullChargeDisplay.gameObject.SetActive(true);
-        damageBuffChargeDisplay.gameObject.SetActive(true);
-        waveNumberDisplay.gameObject.SetActive(true);
-        gameTimerText.gameObject.SetActive(true);
-        playerHealthText.SetActive(true);
-        playerHealthBarBackground.SetActive(true);
+
+        // display all in game UI components
+        forcePullChargeDisplay.gameObject.SetActive(true); // left
+        damageBuffChargeDisplay.gameObject.SetActive(true); // left
+        waveNumberDisplay.gameObject.SetActive(true); // top left
+        gameTimerText.gameObject.SetActive(true); // bottom right
+        playerHealthText.SetActive(true); // bottom left
+        playerHealthBarBackground.SetActive(true); // bottom left
         StartCoroutine(StartGameTimer());
     }
 

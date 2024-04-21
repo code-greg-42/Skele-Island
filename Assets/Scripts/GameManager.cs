@@ -6,27 +6,26 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     int enemiesPerWave = 5;
-
-    // only set this for testing
     int waveNumber;
+    readonly int finalWave = 5;
 
     [HideInInspector]
     public bool isGameActive;
 
-    readonly int finalWave = 5;
+    // enemy speed and spawn variables
     readonly float enemySpeedMin = 3.5f;
     readonly float enemySpeedMax = 10.5f;
     readonly float spawnBoundary = 36.0f;
 
+    // boss variables
     readonly float bossSpeed = 5.0f;
     readonly float bossSizeIncrease = 2.0f;
     readonly float bossAttackDamage = 100.0f;
-
-    // change this only for testing -- normal value 10000
     readonly float bossHealth = 8000.0f;
 
     private void Start()
     {
+        // pause game as game starts with menu launched
         Time.timeScale = 0;
         isGameActive = false;
     }
@@ -40,19 +39,23 @@ public class GameManager : MonoBehaviour
                 waveNumber++;
                 if (waveNumber <= finalWave)
                 {
+                    // update wave number UI component
                     UIManager.Instance.UpdateWaveNumber(waveNumber, finalWave);
+
+                    // increase number of enemies to spawn and spawn new wave
                     enemiesPerWave *= 2;
                     SpawnNewWave(enemiesPerWave);
                 }
                 else if (waveNumber == finalWave + 1)
                 {
+                    // boss wave
                     UIManager.Instance.UpdateWaveNumber(waveNumber, finalWave, true);
                     UIManager.Instance.ActivateBossHealthBar();
                     SpawnBoss();
-                    Debug.Log("Boss spawned!");
                 }
                 else
                 {
+                    // end game with win = true
                     EndGame(true);
                 }
             }
@@ -74,13 +77,11 @@ public class GameManager : MonoBehaviour
         // bring up win or loss menu based on bool
         if (win)
         {
-            Debug.Log("You win!");
             UIManager.Instance.UpdateTotalTimeText();
             UIManager.Instance.ActivateWinMenu();
         }
         else
         {
-            Debug.Log("You lose!");
             UIManager.Instance.ActivateGameOverMenu();
         }
     }
@@ -93,11 +94,15 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        // lock cursor and make it invisible
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        // bring up in game UI components
         UIManager.Instance.ActivateInGameUI();
         isGameActive = true;
+
+        // unpause game
         Time.timeScale = 1;
     }
 
@@ -152,6 +157,7 @@ public class GameManager : MonoBehaviour
 
     Vector3 GetRandomSpawn()
     {
+        // get random x and z spawn positions
         float spawnPosX = Random.Range(-spawnBoundary, spawnBoundary);
         float spawnPosZ = Random.Range(-spawnBoundary, spawnBoundary);
         Vector3 spawnPos = new(spawnPosX, 0, spawnPosZ);
@@ -162,13 +168,17 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // run method again if obstacle is found at spawnPos
             return GetRandomSpawn();
         }
     }
 
     bool IsSpawnObstructed(Vector3 spawn)
     {
+        // get array of collider objects within sphere near spawn
         Collider[] colliders = Physics.OverlapSphere(spawn, 5.0f);
+
+        // loop through all collider objects and return true if obstacle is found
         foreach (Collider collider in colliders)
         {
             if (collider.CompareTag("Obstacle"))
