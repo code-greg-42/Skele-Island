@@ -10,15 +10,17 @@ public class EnemyPool : MonoBehaviour
     public int amountToPool;
 
     [HideInInspector]
-    public bool isPoolLoaded;
+    public bool isPoolLoaded; // flag for other scripts to see when the pool has been fully loaded
 
     private void Awake()
     {
+        // initialize singleton instance
         Instance = this;
     }
 
     void Start()
     {
+        // initialize object pool with inactive enemy objects
         pooledEnemies = new List<GameObject>();
         GameObject enemy;
         for (int i = 0; i < amountToPool; i++)
@@ -27,11 +29,14 @@ public class EnemyPool : MonoBehaviour
             enemy.SetActive(false);
             pooledEnemies.Add(enemy);
         }
+
+        // set flag to true once all enemies are instantiated and added to the pool
         isPoolLoaded = true;
     }
 
     public GameObject GetPooledEnemy()
     {
+        // loop through and return the first inactive enemy
         for (int i = 0; i < amountToPool; i++)
         {
             if (!pooledEnemies[i].activeInHierarchy)
@@ -44,6 +49,7 @@ public class EnemyPool : MonoBehaviour
 
     public bool IsAnyEnemyActive()
     {
+        // loop through and return true if any enemy is active
         foreach (GameObject enemy in pooledEnemies)
         {
             if (enemy.activeInHierarchy)

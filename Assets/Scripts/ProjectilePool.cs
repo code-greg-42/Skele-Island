@@ -11,12 +11,13 @@ public class ProjectilePool : MonoBehaviour
 
     private void Awake()
     {
+        // initialize singleton instance
         Instance = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
+        // initialize object pool with inactive projectile objects
         pooledProjectiles = new List<GameObject>();
         GameObject projectile;
         for (int i = 0; i < amountToPool; i++)
@@ -29,6 +30,7 @@ public class ProjectilePool : MonoBehaviour
 
     public GameObject GetPooledProjectile()
     {
+        // loop through and return the first inactive projectile
         for (int i = 0;i < amountToPool;i++)
         {
             if (!pooledProjectiles[i].activeInHierarchy)

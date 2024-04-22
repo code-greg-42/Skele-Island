@@ -33,7 +33,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!isDying)
         {
-            Debug.Log("player took damage!");
             health -= damage;
 
             // if health reaches 0, update health bar and start dying sequence

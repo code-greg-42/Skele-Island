@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // wave management variables
     int enemiesPerWave = 5;
     int waveNumber;
     readonly int finalWave = 5;

@@ -11,11 +11,13 @@ public class PickupPool : MonoBehaviour
 
     private void Awake()
     {
+        // initialize singleton instance
         Instance = this;
     }
     
     void Start()
     {
+        // initialize object pool with inactive pickup objects
         pooledPickups = new List<GameObject>();
         GameObject pickup;
         for (int i = 0; i < amountToPool; i++)
@@ -28,6 +30,7 @@ public class PickupPool : MonoBehaviour
 
     public GameObject GetPooledPickup()
     {
+        // loop through and return the first inactive pickup object
         for (int i = 0; i < amountToPool; i++)
         {
             if (!pooledPickups[i].activeInHierarchy)
