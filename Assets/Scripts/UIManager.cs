@@ -17,7 +17,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI totalTimeText;
     public Image playerHealthBar;
     public Image bossHealthBar;
+    public Image castBar;
     public GameObject playerHealthText;
+    public GameObject castBarBackground;
     public GameObject playerHealthBarBackground;
     public GameObject bossHealthBarBackground;
     public GameObject gameOverMenu;
@@ -76,6 +78,11 @@ public class UIManager : MonoBehaviour
         bossHealthBar.fillAmount = fillAmount;
     }
 
+    public void UpdateCastBar(float fillAmount)
+    {
+        castBar.fillAmount = fillAmount;
+    }
+
     public void UpdateTotalTimeText()
     {
         // get minutes and seconds of timer
@@ -84,6 +91,21 @@ public class UIManager : MonoBehaviour
 
         // format string in mm:ss format
         totalTimeText.text = string.Format("Total Time: {0:00}:{1:00}", minutes, seconds);
+    }
+
+    public bool IsCastBarActive()
+    {
+        return castBarBackground.activeSelf;
+    }
+
+    public void ActivateCastBar()
+    {
+        castBarBackground.SetActive(true);
+    }
+
+    public void DeactivateCastBar()
+    {
+        castBarBackground.SetActive(false);
     }
 
     public void ActivateBossHealthBar()

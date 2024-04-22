@@ -62,7 +62,6 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerHealth playerHealth;
 
-    // Update is called once per frame
     void Update()
     {
         if (playerMovement.grounded && !damageBuffAnimationActive && !playerHealth.isDying && attackReady)
@@ -78,6 +77,17 @@ public class PlayerAttack : MonoBehaviour
                 isCasting = true;
                 playerAnim.SetBool("isCasting", true);
                 buttonHoldTime += Time.deltaTime;
+
+                // update castbar UI component
+                if (buttonHoldTime <= castTime)
+                {
+                    UIManager.Instance.UpdateCastBar(buttonHoldTime / castTime);
+
+                    if (!UIManager.Instance.IsCastBarActive())
+                    {
+                        UIManager.Instance.ActivateCastBar();
+                    }
+                }
             }
 
             if (Input.GetButtonUp("Fire1"))
@@ -86,6 +96,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     Shoot(buttonHoldTime);
                 }
+                UIManager.Instance.DeactivateCastBar();
                 attackReady = false;
                 isCasting = false;
                 playerAnim.SetBool("isCasting", false);
