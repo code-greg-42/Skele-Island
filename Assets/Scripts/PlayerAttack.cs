@@ -120,8 +120,8 @@ public class PlayerAttack : MonoBehaviour
     {
         playerAnim.SetTrigger("attack");
 
-        float projectileSize = Mathf.Clamp(holdTime * projectileScaleFactor, minProjectileSize, maxProjectileSize);
-
+        float projectileSize = Mathf.Clamp(minProjectileSize + holdTime * projectileScaleFactor, minProjectileSize, maxProjectileSize);
+        Debug.Log(projectileSize);
         Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
         Vector3 targetPoint;
