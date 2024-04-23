@@ -9,22 +9,22 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [Header("UI References")]
-    public TextMeshProUGUI buffText;
-    public TextMeshProUGUI forcePullChargeDisplay;
-    public TextMeshProUGUI damageBuffChargeDisplay;
-    public TextMeshProUGUI waveNumberDisplay;
-    public TextMeshProUGUI gameTimerText;
-    public TextMeshProUGUI totalTimeText;
-    public Image playerHealthBar;
-    public Image bossHealthBar;
-    public Image castBar;
-    public GameObject playerHealthText;
-    public GameObject castBarBackground;
-    public GameObject playerHealthBarBackground;
-    public GameObject bossHealthBarBackground;
-    public GameObject gameOverMenu;
-    public GameObject winMenu;
-    public GameObject startMenu;
+    [SerializeField] TextMeshProUGUI buffText;
+    [SerializeField] TextMeshProUGUI forcePullChargeDisplay;
+    [SerializeField] TextMeshProUGUI damageBuffChargeDisplay;
+    [SerializeField] TextMeshProUGUI waveNumberDisplay;
+    [SerializeField] TextMeshProUGUI gameTimerText;
+    [SerializeField] TextMeshProUGUI totalTimeText;
+    [SerializeField] Image playerHealthBar;
+    [SerializeField] Image bossHealthBar;
+    [SerializeField] Image castBar;
+    [SerializeField] GameObject playerHealthText;
+    [SerializeField] GameObject castBarBackground;
+    [SerializeField] GameObject playerHealthBarBackground;
+    [SerializeField] GameObject bossHealthBarBackground;
+    [SerializeField] GameObject gameOverMenu;
+    [SerializeField] GameObject winMenu;
+    [SerializeField] GameObject startMenu;
 
     readonly int buffTextDuration = 3; // time that the UI component for buff messages will display what buff was picked up
 
