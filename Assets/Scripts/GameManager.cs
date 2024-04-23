@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     // wave management variables
     int enemiesPerWave = 5;
     int waveNumber;
-    readonly int finalWave = 5;
+    readonly int finalWave = 4;
 
     [HideInInspector]
     public bool isGameActive;
