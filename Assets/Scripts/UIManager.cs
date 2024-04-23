@@ -78,9 +78,22 @@ public class UIManager : MonoBehaviour
         bossHealthBar.fillAmount = fillAmount;
     }
 
-    public void UpdateCastBar(float fillAmount)
+    public void UpdateCastBar(float fillAmount, bool castTimeMinMet)
     {
-        castBar.fillAmount = fillAmount;
+        // activate castbar if not already active
+        if (!castBarBackground.activeSelf)
+        {
+            castBarBackground.SetActive(true);
+        }
+
+        // check if castbar is full; if not, update the fill amount
+        if (castBar.fillAmount < 1.0f)
+        {
+            castBar.fillAmount = fillAmount;
+        }
+
+        // set color to green if button has been held long enough for a shot to occur, otherwise set to red
+        castBar.color = castTimeMinMet ? Color.green : Color.red;
     }
 
     public void UpdateTotalTimeText()
@@ -91,23 +104,6 @@ public class UIManager : MonoBehaviour
 
         // format string in mm:ss format
         totalTimeText.text = string.Format("Total Time: {0:00}:{1:00}", minutes, seconds);
-    }
-
-    public bool IsCastBarActive()
-    {
-        // used for preventing repetitive activation of castbar
-        return castBarBackground.activeSelf;
-    }
-
-    public bool IsCastBarFull()
-    {
-        // using threshold to avoid floating point precision issues
-        return castBar.fillAmount >= 0.999f;
-    }
-
-    public void ActivateCastBar()
-    {
-        castBarBackground.SetActive(true);
     }
 
     public void DeactivateCastBar()

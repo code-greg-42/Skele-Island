@@ -10,10 +10,12 @@ public class PlayerAttack : MonoBehaviour
     public float attackDamage = 50.0f;
 
     // private attack variables
-    readonly float castTime = 0.15f;
+    readonly float castTime = 0.5f;
     readonly float attackAnimationTime = 0.54882352941f;
     float buttonHoldTime;
     bool attackReady = true;
+    float projectileSize;
+    bool castTimeMinMet; // used for checking if the user has held down mb1 for long enough to cause a shot
 
     [Header("Force Pull Variables")]
     public float forcePullRange;
@@ -46,7 +48,6 @@ public class PlayerAttack : MonoBehaviour
     public float minProjectileSize = 1f;
     public float maxProjectileSize = 2f;
     public float projectileScaleFactor = 0.5f;
-    float projectileSize;
 
     // attribute maximums
     [HideInInspector]
@@ -69,6 +70,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
+                buttonHoldTime = 0;
                 isCasting = true;
                 playerAnim.SetBool("isCasting", true);
             }
@@ -85,29 +87,22 @@ public class PlayerAttack : MonoBehaviour
                 // calculate fill amount relative to the projectile's min and max sizes
                 float castBarFillAmount = (projectileSize - minProjectileSize) / (maxProjectileSize - minProjectileSize);
 
+                // calculate if button has been held long enough to shoot
+                castTimeMinMet = buttonHoldTime >= castTime;
+
                 // update castbar UI component
-                if (!UIManager.Instance.IsCastBarFull())
-                {
-                    if (!UIManager.Instance.IsCastBarActive())
-                    {
-                        UIManager.Instance.ActivateCastBar();
-                    }
-                    UIManager.Instance.UpdateCastBar(castBarFillAmount);
-                }
+                UIManager.Instance.UpdateCastBar(castBarFillAmount, castTimeMinMet);
             }
 
             if (Input.GetButtonUp("Fire1"))
             {
-                if (buttonHoldTime > castTime)
+                if (castTimeMinMet)
                 {
                     Shoot();
                 }
-                UIManager.Instance.DeactivateCastBar();
-                attackReady = false;
-                isCasting = false;
-                playerAnim.SetBool("isCasting", false);
-                buttonHoldTime = 0f;
-                StartCoroutine(ResetMainAttack());
+                
+                // method for readying all attack variables for next attack
+                ResetAttackState();
             }
         }
         
@@ -209,6 +204,17 @@ public class PlayerAttack : MonoBehaviour
                 StartCoroutine(MoveEnemyToTarget(enemy, pullPosition));
             }
         }
+    }
+
+    void ResetAttackState()
+    {
+        castTimeMinMet = false;
+        attackReady = false;
+        isCasting = false;
+        UIManager.Instance.DeactivateCastBar();
+        playerAnim.SetBool("isCasting", false);
+        buttonHoldTime = 0f;
+        StartCoroutine(ResetMainAttack());
     }
 
     IEnumerator MoveEnemyToTarget(Enemy enemy, Vector3 targetPosition)
