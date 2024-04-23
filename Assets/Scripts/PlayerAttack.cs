@@ -46,6 +46,7 @@ public class PlayerAttack : MonoBehaviour
     public float minProjectileSize = 1f;
     public float maxProjectileSize = 2f;
     public float projectileScaleFactor = 0.5f;
+    float projectileSize;
 
     // attribute maximums
     [HideInInspector]
@@ -78,15 +79,20 @@ public class PlayerAttack : MonoBehaviour
                 playerAnim.SetBool("isCasting", true);
                 buttonHoldTime += Time.deltaTime;
 
-                // update castbar UI component
-                if (buttonHoldTime <= castTime)
-                {
-                    UIManager.Instance.UpdateCastBar(buttonHoldTime / castTime);
+                // calculate projectile size based on how long the button has been held for
+                projectileSize = Mathf.Clamp(minProjectileSize + buttonHoldTime * projectileScaleFactor, minProjectileSize, maxProjectileSize);
 
+                // calculate fill amount relative to the projectile's min and max sizes
+                float castBarFillAmount = (projectileSize - minProjectileSize) / (maxProjectileSize - minProjectileSize);
+
+                // update castbar UI component
+                if (!UIManager.Instance.IsCastBarFull())
+                {
                     if (!UIManager.Instance.IsCastBarActive())
                     {
                         UIManager.Instance.ActivateCastBar();
                     }
+                    UIManager.Instance.UpdateCastBar(castBarFillAmount);
                 }
             }
 
@@ -94,7 +100,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (buttonHoldTime > castTime)
                 {
-                    Shoot(buttonHoldTime);
+                    Shoot();
                 }
                 UIManager.Instance.DeactivateCastBar();
                 attackReady = false;
@@ -127,11 +133,10 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    void Shoot(float holdTime)
+    void Shoot()
     {
         playerAnim.SetTrigger("attack");
 
-        float projectileSize = Mathf.Clamp(minProjectileSize + holdTime * projectileScaleFactor, minProjectileSize, maxProjectileSize);
         Debug.Log(projectileSize);
         Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 

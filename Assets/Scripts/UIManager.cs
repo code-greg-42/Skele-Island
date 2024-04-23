@@ -95,7 +95,14 @@ public class UIManager : MonoBehaviour
 
     public bool IsCastBarActive()
     {
+        // used for preventing repetitive activation of castbar
         return castBarBackground.activeSelf;
+    }
+
+    public bool IsCastBarFull()
+    {
+        // using threshold to avoid floating point precision issues
+        return castBar.fillAmount >= 0.999f;
     }
 
     public void ActivateCastBar()
@@ -105,7 +112,9 @@ public class UIManager : MonoBehaviour
 
     public void DeactivateCastBar()
     {
+        // reset fill amount and deactivate
         castBarBackground.SetActive(false);
+        castBar.fillAmount = 0;
     }
 
     public void ActivateBossHealthBar()
