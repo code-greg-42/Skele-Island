@@ -3570,7 +3570,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.075686626, y: 0.098252214, z: -0.0074944533, w: 0.9922509}
+  m_LocalRotation: {x: 0.07568663, y: 0.0982522, z: -0.007494452, w: 0.9922509}
   m_LocalPosition: {x: 0, y: 3, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4006,7 +4006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledEnemies: []
   enemyToPool: {fileID: 6660485717233480057, guid: 0cfb4a87f3a7934498639b2dc2f28c3a, type: 3}
-  amountToPool: 80
+  amountToPool: 64
   isPoolLoaded: 0
 --- !u!114 &1015108462
 MonoBehaviour:
@@ -8072,7 +8072,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971304772}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.075686626, y: 0.09825221, z: -0.007494454, w: 0.9922509}
+  m_LocalRotation: {x: 0.07568663, y: 0.0982522, z: -0.0074944533, w: 0.9922509}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

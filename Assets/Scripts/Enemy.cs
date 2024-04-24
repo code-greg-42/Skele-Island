@@ -117,18 +117,21 @@ public class Enemy : MonoBehaviour
 
     private void DropPickup()
     {
-        // get random value between 0 and 1
-        float randomRoll = Random.value;
-        if (randomRoll < pickupDropRate)
+        if (!isBoss)
         {
-            // get pickup from pickup pool
-            GameObject pickup = PickupPool.Instance.GetPooledPickup();
-            if (pickup != null)
+            // get random value between 0 and 1
+            float randomRoll = Random.value;
+            if (randomRoll < pickupDropRate)
             {
-                // drop pickup on dead enemy, using the pickup prefab's y position to ensure correct visibility
-                Vector3 dropPosition = new(transform.position.x, pickup.transform.position.y, transform.position.z);
-                pickup.transform.position = dropPosition;
-                pickup.SetActive(true);
+                // get pickup from pickup pool
+                GameObject pickup = PickupPool.Instance.GetPooledPickup();
+                if (pickup != null)
+                {
+                    // drop pickup on dead enemy, using the pickup prefab's y position to ensure correct visibility
+                    Vector3 dropPosition = new(transform.position.x, pickup.transform.position.y, transform.position.z);
+                    pickup.transform.position = dropPosition;
+                    pickup.SetActive(true);
+                }
             }
         }
     }
