@@ -63,68 +63,72 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] Animator playerAnim;
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerHealth playerHealth;
+    [SerializeField] GameManager gameManager;
 
     void Update()
     {
-        if (playerMovement.grounded && !damageBuffAnimationActive && !playerHealth.isDying && attackReady)
+        if (gameManager.isGameActive)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (playerMovement.grounded && !damageBuffAnimationActive && !playerHealth.isDying && attackReady)
             {
-                buttonHoldTime = 0;
-                isCasting = true;
-                playerAnim.SetBool("isCasting", true);
-            }
-
-            if (Input.GetButton("Fire1"))
-            {
-                isCasting = true;
-                playerAnim.SetBool("isCasting", true);
-                buttonHoldTime += Time.deltaTime;
-
-                // calculate projectile size based on how long the button has been held for
-                projectileSize = Mathf.Clamp(minProjectileSize + buttonHoldTime * projectileScaleFactor, minProjectileSize, maxProjectileSize);
-
-                // calculate fill amount relative to the projectile's min and max sizes
-                float castBarFillAmount = (projectileSize - minProjectileSize) / (maxProjectileSize - minProjectileSize);
-
-                // calculate if button has been held long enough to shoot
-                castTimeMinMet = buttonHoldTime >= castTime;
-
-                // update castbar UI component
-                UIManager.Instance.UpdateCastBar(castBarFillAmount, castTimeMinMet);
-            }
-
-            if (Input.GetButtonUp("Fire1"))
-            {
-                if (castTimeMinMet)
+                if (Input.GetButtonDown("Fire1"))
                 {
-                    Shoot();
+                    buttonHoldTime = 0;
+                    isCasting = true;
+                    playerAnim.SetBool("isCasting", true);
                 }
-                
-                // method for readying all attack variables for next attack
-                ResetAttackState();
+
+                if (Input.GetButton("Fire1"))
+                {
+                    isCasting = true;
+                    playerAnim.SetBool("isCasting", true);
+                    buttonHoldTime += Time.deltaTime;
+
+                    // calculate projectile size based on how long the button has been held for
+                    projectileSize = Mathf.Clamp(minProjectileSize + buttonHoldTime * projectileScaleFactor, minProjectileSize, maxProjectileSize);
+
+                    // calculate fill amount relative to the projectile's min and max sizes
+                    float castBarFillAmount = (projectileSize - minProjectileSize) / (maxProjectileSize - minProjectileSize);
+
+                    // calculate if button has been held long enough to shoot
+                    castTimeMinMet = buttonHoldTime >= castTime;
+
+                    // update castbar UI component
+                    UIManager.Instance.UpdateCastBar(castBarFillAmount, castTimeMinMet);
+                }
+
+                if (Input.GetButtonUp("Fire1"))
+                {
+                    if (castTimeMinMet)
+                    {
+                        Shoot();
+                    }
+
+                    // method for readying all attack variables for next attack
+                    ResetAttackState();
+                }
             }
-        }
-        
-        if (Input.GetKeyDown(forcePullKey) && forcePullReady && forcePullCharges > 0 && !playerHealth.isDying)
-        {
-            forcePullReady = false;
 
-            forcePullCharges -= 1;
-            UIManager.Instance.UpdateForcePullCharges(forcePullCharges);
+            if (Input.GetKeyDown(forcePullKey) && forcePullReady && forcePullCharges > 0 && !playerHealth.isDying)
+            {
+                forcePullReady = false;
 
-            ForcePull();
-            StartCoroutine(ResetForcePull());
-        }
+                forcePullCharges -= 1;
+                UIManager.Instance.UpdateForcePullCharges(forcePullCharges);
 
-        if (Input.GetKeyDown(damageBuffKey) && damageBuffReady && playerMovement.grounded && !isCasting && !playerMovement.isRolling && damageBuffCharges > 0 && !playerHealth.isDying)
-        {
-            damageBuffReady = false;
+                ForcePull();
+                StartCoroutine(ResetForcePull());
+            }
 
-            damageBuffCharges -= 1;
-            UIManager.Instance.UpdateDamageBuffCharges(damageBuffCharges);
+            if (Input.GetKeyDown(damageBuffKey) && damageBuffReady && playerMovement.grounded && !isCasting && !playerMovement.isRolling && damageBuffCharges > 0 && !playerHealth.isDying)
+            {
+                damageBuffReady = false;
 
-            StartCoroutine(DamageBuffCoroutine());
+                damageBuffCharges -= 1;
+                UIManager.Instance.UpdateDamageBuffCharges(damageBuffCharges);
+
+                StartCoroutine(DamageBuffCoroutine());
+            }
         }
     }
 
