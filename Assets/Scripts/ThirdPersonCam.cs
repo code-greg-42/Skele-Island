@@ -5,9 +5,9 @@ using UnityEngine;
 public class ThirdPersonCam : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] Transform orientation;
-    [SerializeField] Transform playerObj;
-    [SerializeField] Transform combatLookAt;
+    [SerializeField] private Transform orientation;
+    [SerializeField] private Transform playerObj;
+    [SerializeField] private Transform combatLookAt;
 
     void Update()
     {

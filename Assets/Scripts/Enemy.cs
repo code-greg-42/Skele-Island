@@ -31,20 +31,20 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public NavMeshAgent navMeshAgent;
 
-    // private references
-    Transform player;
-    Animator enemyAnim;
+    // references
+    private Transform player;
+    private Animator enemyAnim;
 
     // animation time variables
-    readonly float deathAnimationTime = 2.167f;
-    readonly float attackAnimationWindupTime = 0.8f;
-    readonly float attackAnimationSwingTime = 1.06f;
-    readonly float attackAnimationTotalTime = 2.767f;
-    readonly float takeDamageAnimationTime = 0.833f;
+    private readonly float deathAnimationTime = 2.167f;
+    private readonly float attackAnimationWindupTime = 0.8f;
+    private readonly float attackAnimationSwingTime = 1.06f;
+    private readonly float attackAnimationTotalTime = 2.767f;
+    private readonly float takeDamageAnimationTime = 0.833f;
 
     // used for preventing movement while enemy is dying or taking damage
-    bool isTakingDamage;
-    bool isDying;
+    private bool isTakingDamage;
+    private bool isDying;
 
     void Awake()
     {
@@ -136,7 +136,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator AttackSequence()
+    private IEnumerator AttackSequence()
     {
         isAttacking = true;
 
@@ -173,7 +173,7 @@ public class Enemy : MonoBehaviour
         isAttacking = false;
     }
 
-    IEnumerator TakeDamageSequence()
+    private IEnumerator TakeDamageSequence()
     {
         // stop movement during take damage animation
         isTakingDamage = true;
@@ -187,7 +187,7 @@ public class Enemy : MonoBehaviour
         isTakingDamage = false;
     }
 
-    IEnumerator DeathSequence()
+    private IEnumerator DeathSequence()
     {
         // stop navmesh movement
         isDying = true;

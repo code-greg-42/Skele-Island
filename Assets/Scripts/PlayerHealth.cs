@@ -12,13 +12,13 @@ public class PlayerHealth : MonoBehaviour
     public bool isDying;
 
     [Header("References")]
-    [SerializeField] Animator anim;
-    [SerializeField] PlayerAttack playerAttack;
-    [SerializeField] PlayerMovement playerMovement;
-    [SerializeField] GameManager gameManager;
+    [SerializeField] private Animator anim;
+    [SerializeField] private PlayerAttack playerAttack;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private GameManager gameManager;
 
-    readonly float boundary = -15.0f; // boundary for checking if player has fallen off the edge
-    readonly float deathAnimationTime = 2.08375f; // time it takes for death animation to play fully
+    private readonly float boundary = -15.0f; // boundary for checking if player has fallen off the edge
+    private readonly float deathAnimationTime = 2.08375f; // time it takes for death animation to play fully
 
     private void Update()
     {
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    IEnumerator DeathCoroutine()
+    private IEnumerator DeathCoroutine()
     {
         // set bool to stop movement and play animation
         isDying = true;

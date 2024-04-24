@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     // wave management variables
-    int enemiesPerWave = 1;
-    int waveNumber;
-    readonly int finalWave = 6;
+    private int enemiesPerWave = 1;
+    private int waveNumber;
+    private readonly int finalWave = 6;
 
     [HideInInspector]
     public bool isGameActive;
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void SpawnNewWave(int enemiesToSpawn)
+    private void SpawnNewWave(int enemiesToSpawn)
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void SpawnBoss()
+    private void SpawnBoss()
     {
         GameObject enemy = EnemyPool.Instance.GetPooledEnemy();
         if (enemy != null)
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    Vector3 GetRandomSpawn()
+    private Vector3 GetRandomSpawn()
     {
         // get random x and z spawn positions
         float spawnPosX = Random.Range(-spawnBoundary, spawnBoundary);
@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    bool IsSpawnObstructed(Vector3 spawn)
+    private bool IsSpawnObstructed(Vector3 spawn)
     {
         // get array of collider objects within sphere near spawn
         Collider[] colliders = Physics.OverlapSphere(spawn, 5.0f);

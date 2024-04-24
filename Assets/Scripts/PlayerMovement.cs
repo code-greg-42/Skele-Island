@@ -11,12 +11,12 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
 
-    readonly float castingSpeedReduction = 0.35f; // used to reduce speed of player while casting animation is active
+    private readonly float castingSpeedReduction = 0.35f; // used to reduce speed of player while casting animation is active
 
     // roll variables
-    readonly float rollSpeedMultiplier = 2.3f; // influences player movement speed during roll ability
-    readonly float rollDuration = 0.8f; // used to correctly time the movement speed increase during roll
-    readonly float rollCooldown = 2.0f; // used to prevent spamming of roll
+    private readonly float rollSpeedMultiplier = 2.3f; // influences player movement speed during roll ability
+    private readonly float rollDuration = 0.8f; // used to correctly time the movement speed increase during roll
+    private readonly float rollCooldown = 2.0f; // used to prevent spamming of roll
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -28,26 +28,24 @@ public class PlayerMovement : MonoBehaviour
     public bool grounded;
 
     [Header("References")]
-    [SerializeField] Transform orientation;
-    [SerializeField] Animator playerAnim;
-    [SerializeField] PlayerAttack playerAttackScript;
-    [SerializeField] PlayerHealth playerHealthScript;
-    [SerializeField] GameManager gameManager;
+    [SerializeField] private Transform orientation;
+    [SerializeField] private Animator playerAnim;
+    [SerializeField] private PlayerAttack playerAttackScript;
+    [SerializeField] private PlayerHealth playerHealthScript;
+    [SerializeField] private GameManager gameManager;
 
-    // attribute maximums
     [HideInInspector]
     public float moveSpeedMax = 13.0f; // caps movement speed increases from pickups
 
     [HideInInspector]
     public bool isRolling;
 
-    // private variables
-    float horizontalInput;
-    float verticalInput;
-    bool readyToJump = true;
-    bool readyToRoll = true;
-    Vector3 moveDirection;
-    Rigidbody rb;
+    private float horizontalInput;
+    private float verticalInput;
+    private bool readyToJump = true;
+    private bool readyToRoll = true;
+    private Vector3 moveDirection;
+    private Rigidbody rb;
 
     void Start()
     {
@@ -55,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (!playerHealthScript.isDying && gameManager.isGameActive)
         {

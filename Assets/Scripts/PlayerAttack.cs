@@ -10,19 +10,19 @@ public class PlayerAttack : MonoBehaviour
     public float attackDamage = 50.0f;
 
     // private attack variables
-    readonly float castTime = 0.5f;
-    readonly float attackAnimationTime = 0.54882352941f;
-    float buttonHoldTime;
-    bool attackReady = true;
-    float projectileSize;
-    bool castTimeMinMet; // used for checking if the user has held down mb1 for long enough to cause a shot
+    private readonly float castTime = 0.5f;
+    private readonly float attackAnimationTime = 0.54882352941f;
+    private float buttonHoldTime;
+    private float projectileSize;
+    private bool attackReady = true;
+    private bool castTimeMinMet; // used for checking if the user has held down mb1 for long enough to cause a shot
 
     [Header("Force Pull Variables")]
     public float forcePullRange;
     public float forcePullSpeed;
     public float forcePullCenterRadius;
-    readonly float forcePullCooldown = 3.0f;
-    bool forcePullReady = true;
+    private readonly float forcePullCooldown = 3.0f;
+    private bool forcePullReady = true;
 
     // variables used in other scripts
     [HideInInspector]
@@ -35,14 +35,14 @@ public class PlayerAttack : MonoBehaviour
     public bool damageBuffAnimationActive;
 
     // damage buff variables
-    readonly float damageBuffMultiplication = 4.0f;
-    readonly float damageBuffDuration = 5.0f;
-    readonly float damageBuffAnimationTime = 1.18f;
-    bool damageBuffReady = true;
+    private readonly float damageBuffMultiplication = 4.0f;
+    private readonly float damageBuffDuration = 5.0f;
+    private readonly float damageBuffAnimationTime = 1.18f;
+    private bool damageBuffReady = true;
 
     [Header("Keybinds")]
-    public KeyCode forcePullKey = KeyCode.C;
-    public KeyCode damageBuffKey = KeyCode.E;
+    [SerializeField] private KeyCode forcePullKey = KeyCode.C;
+    [SerializeField] private KeyCode damageBuffKey = KeyCode.E;
 
     [Header("Projectile Size")]
     public float minProjectileSize = 1f;
@@ -56,14 +56,14 @@ public class PlayerAttack : MonoBehaviour
     public float minProjectileSizeMax = 0.8f;
 
     [Header("References")]
-    [SerializeField] GameObject projectilePrefab;
-    [SerializeField] GameObject forcePullEffectPrefab;
-    [SerializeField] Transform shootFromPoint;
-    [SerializeField] Camera mainCam;
-    [SerializeField] Animator playerAnim;
-    [SerializeField] PlayerMovement playerMovement;
-    [SerializeField] PlayerHealth playerHealth;
-    [SerializeField] GameManager gameManager;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject forcePullEffectPrefab;
+    [SerializeField] private Transform shootFromPoint;
+    [SerializeField] private Camera mainCam;
+    [SerializeField] private Animator playerAnim;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private GameManager gameManager;
 
     void Update()
     {
@@ -132,7 +132,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    void Shoot()
+    private void Shoot()
     {
         playerAnim.SetTrigger("attack");
 
@@ -184,7 +184,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    void ForcePull()
+    private void ForcePull()
     {
         Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
@@ -210,7 +210,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    void ResetAttackState()
+    private void ResetAttackState()
     {
         castTimeMinMet = false;
         attackReady = false;
@@ -221,7 +221,7 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(ResetMainAttack());
     }
 
-    IEnumerator MoveEnemyToTarget(Enemy enemy, Vector3 targetPosition)
+    private IEnumerator MoveEnemyToTarget(Enemy enemy, Vector3 targetPosition)
     {
         // set bool and method to stop movement from interfering
         enemy.isBeingPulled = true;
@@ -241,19 +241,19 @@ public class PlayerAttack : MonoBehaviour
         enemy.isBeingPulled = false;
     }
 
-    IEnumerator ResetForcePull()
+    private IEnumerator ResetForcePull()
     {
         yield return new WaitForSeconds(forcePullCooldown);
         forcePullReady = true;
     }
 
-    IEnumerator ResetMainAttack()
+    private IEnumerator ResetMainAttack()
     {
         yield return new WaitForSeconds(attackAnimationTime);
         attackReady = true;
     }
 
-    IEnumerator DamageBuffCoroutine()
+    private IEnumerator DamageBuffCoroutine()
     {
         // start animation and set bool
         playerAnim.SetTrigger("buffSelf");

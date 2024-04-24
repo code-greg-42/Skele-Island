@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DeactivateProjectile : MonoBehaviour
 {
-    readonly float maxTravelDistance = 75.0f;
-    readonly float explosionRadius = 2.0f;
+    private readonly float maxTravelDistance = 75.0f;
+    private readonly float explosionRadius = 2.0f;
 
     public float attackDamage = 50.0f;
 
-    Vector3 originPosition;
+    private Vector3 originPosition;
 
     void FixedUpdate()
     {
@@ -25,9 +25,6 @@ public class DeactivateProjectile : MonoBehaviour
         // handle collision with enemy objects
         if (other.CompareTag("Enemy"))
         {
-            // log damage and projectile scale for debugging
-            Debug.Log("Hit enemy! Scale: " + transform.localScale.x + " Damage: " + transform.localScale.x * attackDamage);
-
             // apply damage to the enemy based on scale of the projectile
             if (other.gameObject.TryGetComponent<Enemy>(out var enemy))
             {
@@ -52,7 +49,7 @@ public class DeactivateProjectile : MonoBehaviour
         Deactivate();
     }
 
-    void Deactivate()
+    private void Deactivate()
     {
         gameObject.SetActive(false);
     }

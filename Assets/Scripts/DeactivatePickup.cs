@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class DeactivatePickup : MonoBehaviour
 {
-    readonly float lifetime = 12.5f; // determines how long a pickup stays active for after spawning
-    float aliveTimer = 0f;
+    private readonly float lifetime = 12.5f; // determines how long a pickup stays active for after spawning
+    private float aliveTimer = 0f;
 
     // buff increase amounts
-    readonly float attackDamageIncrease = 5.0f;
-    readonly float moveSpeedIncrease = 0.5f;
-    readonly float projectileSizeIncrease = 0.1f;
+    private readonly float attackDamageIncrease = 5.0f;
+    private readonly float moveSpeedIncrease = 0.5f;
+    private readonly float projectileSizeIncrease = 0.1f;
 
     // script references
-    PlayerAttack playerAttack;
-    PlayerHealth playerHealth;
-    PlayerMovement playerMovement;
+    private PlayerAttack playerAttack;
+    private PlayerHealth playerHealth;
+    private PlayerMovement playerMovement;
 
     // enum for buff types
     enum BuffType
@@ -49,7 +49,7 @@ public class DeactivatePickup : MonoBehaviour
         }
     }
 
-    void Deactivate()
+    private void Deactivate()
     {
         aliveTimer = 0f;
         gameObject.SetActive(false);
@@ -64,7 +64,7 @@ public class DeactivatePickup : MonoBehaviour
         }
     }
 
-    void ApplyRandomBuff()
+    private void ApplyRandomBuff()
     {
         // get random buff from BuffType enum
         BuffType buff = (BuffType)Random.Range(0, System.Enum.GetValues(typeof(BuffType)).Length);

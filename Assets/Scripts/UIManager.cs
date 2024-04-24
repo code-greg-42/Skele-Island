@@ -9,26 +9,26 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [Header("UI References")]
-    [SerializeField] TextMeshProUGUI buffText;
-    [SerializeField] TextMeshProUGUI forcePullChargeDisplay;
-    [SerializeField] TextMeshProUGUI damageBuffChargeDisplay;
-    [SerializeField] TextMeshProUGUI waveNumberDisplay;
-    [SerializeField] TextMeshProUGUI gameTimerText;
-    [SerializeField] TextMeshProUGUI totalTimeText;
-    [SerializeField] Image playerHealthBar;
-    [SerializeField] Image bossHealthBar;
-    [SerializeField] Image castBar;
-    [SerializeField] GameObject playerHealthText;
-    [SerializeField] GameObject castBarBackground;
-    [SerializeField] GameObject playerHealthBarBackground;
-    [SerializeField] GameObject bossHealthBarBackground;
-    [SerializeField] GameObject gameOverMenu;
-    [SerializeField] GameObject winMenu;
-    [SerializeField] GameObject startMenu;
+    [SerializeField] private TextMeshProUGUI buffText;
+    [SerializeField] private TextMeshProUGUI forcePullChargeDisplay;
+    [SerializeField] private TextMeshProUGUI damageBuffChargeDisplay;
+    [SerializeField] private TextMeshProUGUI waveNumberDisplay;
+    [SerializeField] private TextMeshProUGUI gameTimerText;
+    [SerializeField] private TextMeshProUGUI totalTimeText;
+    [SerializeField] private Image playerHealthBar;
+    [SerializeField] private Image bossHealthBar;
+    [SerializeField] private Image castBar;
+    [SerializeField] private GameObject playerHealthText;
+    [SerializeField] private GameObject castBarBackground;
+    [SerializeField] private GameObject playerHealthBarBackground;
+    [SerializeField] private GameObject bossHealthBarBackground;
+    [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private GameObject winMenu;
+    [SerializeField] private GameObject startMenu;
 
-    readonly int buffTextDuration = 3; // time that the UI component for buff messages will display what buff was picked up
+    private readonly int buffTextDuration = 3; // time that the UI component for buff messages will display what buff was picked up
 
-    int gameTimer;
+    private int gameTimer;
 
     private Coroutine buffMessageCoroutine;
 
