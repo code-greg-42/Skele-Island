@@ -13,16 +13,39 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool isGameActive;
 
-    // enemy speed and spawn variables
-    readonly float enemySpeedMin = 3.5f;
-    readonly float enemySpeedMax = 10.5f;
-    readonly float spawnBoundary = 36.0f;
+    // enemy variables
+    private readonly float spawnBoundary = 36.0f;
+    private readonly float enemySpeedMin = 3.5f;
+    private float enemySpeedMax = 10.5f;
+    private float enemyAttackDamage = 25.0f;
+    private float enemyPickupDropRate = 0.25f;
 
     // boss variables
-    readonly float bossSpeed = 5.0f;
-    readonly float bossSizeIncrease = 2.0f;
-    readonly float bossAttackDamage = 100.0f;
-    readonly float bossHealth = 8000.0f;
+    private float bossSpeed = 5.0f;
+    private float bossHealth = 8000.0f;
+    private readonly float bossSizeIncrease = 2.0f; // constant across difficulties
+    private readonly float bossAttackDamage = 100.0f; // constant across difficulties
+
+    // easy difficulty settings
+    private readonly float easyEnemyMaxSpeed = 4.0f; // max speed an enemy can roll for its speed attribute
+    private readonly float easyEnemyAttackDamage = 10.0f; // attack damage an enemy does with sword attack (player health = 100)
+    private readonly float easyEnemyPickupDropRate = 0.35f; // how frequently pickups drop on enemy death
+    private readonly float easyBossSpeed = 4.0f;
+    private readonly float easyBossHealth = 4000.0f;
+
+    // medium difficulty settings
+    private readonly float mediumEnemyMaxSpeed = 8.0f;
+    private readonly float mediumEnemyAttackDamage = 25.0f;
+    private readonly float mediumEnemyPickupDropRate = 0.25f;
+    private readonly float mediumBossSpeed = 5.0f;
+    private readonly float mediumBossHealth = 6000.0f;
+
+    // hard difficulty settings
+    private readonly float hardEnemyMaxSpeed = 12.0f;
+    private readonly float hardEnemyAttackDamage = 50.0f;
+    private readonly float hardEnemyPickupDropRate = 0.15f;
+    private readonly float hardBossSpeed = 6.0f;
+    private readonly float hardBossHealth = 8000.0f;
 
     private void Start()
     {
@@ -93,8 +116,32 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void StartGame()
+    public void StartGame(int difficulty)
     {
+        // set game manager variables according to difficulty
+        if (difficulty == 1)
+        {
+            enemySpeedMax = easyEnemyMaxSpeed;
+            enemyAttackDamage = easyEnemyAttackDamage;
+            enemyPickupDropRate = easyEnemyPickupDropRate;
+            bossSpeed = easyBossSpeed;
+            bossHealth = easyBossHealth;
+        } else if (difficulty == 2) 
+        {
+            enemySpeedMax = mediumEnemyMaxSpeed;
+            enemyAttackDamage = mediumEnemyAttackDamage;
+            enemyPickupDropRate = mediumEnemyPickupDropRate;
+            bossSpeed = mediumBossSpeed;
+            bossHealth = mediumBossHealth;
+        } else if (difficulty == 3)
+        {
+            enemySpeedMax = hardEnemyMaxSpeed;
+            enemyAttackDamage = hardEnemyAttackDamage;
+            enemyPickupDropRate = hardEnemyPickupDropRate;
+            bossSpeed = hardBossSpeed;
+            bossHealth = hardBossHealth;
+        }
+
         // lock cursor and make it invisible
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -120,6 +167,10 @@ public class GameManager : MonoBehaviour
                     // apply random speed and acceleration to enemy navmesh
                     enemyScript.navMeshAgent.speed = randomSpeed;
                     enemyScript.navMeshAgent.acceleration = randomSpeed * 1.5f;
+
+                    // set attack damage and drop rate accordingly
+                    enemyScript.attackDamage = enemyAttackDamage;
+                    enemyScript.pickupDropRate = enemyPickupDropRate;
                 }
                 // spawn enemy at random unobstructed point
                 enemy.transform.position = GetRandomSpawn();
