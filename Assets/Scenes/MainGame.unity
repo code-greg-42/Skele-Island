@@ -3162,7 +3162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.075686626, y: 0.098252214, z: -0.0074944533, w: 0.9922509}
+  m_LocalRotation: {x: 0.07568663, y: 0.0982522, z: -0.007494452, w: 0.9922509}
   m_LocalPosition: {x: 0, y: 3, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5827,6 +5827,7 @@ MonoBehaviour:
   playerAnim: {fileID: 95706291614279188}
   playerAttackScript: {fileID: 1686115186}
   playerHealthScript: {fileID: 1686115187}
+  gameManager: {fileID: 1015108462}
   moveSpeedMax: 20
   isRolling: 0
 --- !u!114 &1686115186
@@ -7261,7 +7262,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971304772}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.075686626, y: 0.09825221, z: -0.007494454, w: 0.9922509}
+  m_LocalRotation: {x: 0.07568663, y: 0.0982522, z: -0.0074944533, w: 0.9922509}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

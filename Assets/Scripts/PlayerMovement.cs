@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator playerAnim;
     [SerializeField] PlayerAttack playerAttackScript;
     [SerializeField] PlayerHealth playerHealthScript;
+    [SerializeField] GameManager gameManager;
 
     // attribute maximums
     [HideInInspector]
@@ -56,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!playerHealthScript.isDying)
+        if (!playerHealthScript.isDying && gameManager.isGameActive)
         {
             MovePlayer();
         }
@@ -64,26 +65,29 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
-        // get inputs and control speed from going above the max
-        MyInput();
-        SpeedControl();
-
-        // set drag if player on the ground
-        if (grounded)
+        if (gameManager.isGameActive)
         {
-            rb.drag = groundDrag;
-        }
-        else
-        {
-            rb.drag = 0;
-        }
+            // ground check
+            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
-        // update animator
-        playerAnim.SetFloat("vertical", verticalInput);
-        playerAnim.SetFloat("horizontal", horizontalInput);
+            // get inputs and control speed from going above the max
+            MyInput();
+            SpeedControl();
+
+            // set drag if player on the ground
+            if (grounded)
+            {
+                rb.drag = groundDrag;
+            }
+            else
+            {
+                rb.drag = 0;
+            }
+
+            // update animator
+            playerAnim.SetFloat("vertical", verticalInput);
+            playerAnim.SetFloat("horizontal", horizontalInput);
+        }
     }
 
     private void MyInput()
