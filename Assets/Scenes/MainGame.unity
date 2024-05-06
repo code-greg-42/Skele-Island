@@ -2047,7 +2047,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 697349361}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.055203672, y: 0.09838589, z: -0.0054662414, w: 0.993601}
+  m_LocalRotation: {x: 0.05520368, y: 0.09838587, z: -0.005466241, w: 0.99360096}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3569,7 +3569,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07568663, y: 0.0982522, z: -0.007494452, w: 0.9922509}
+  m_LocalRotation: {x: 0.075686626, y: 0.098252214, z: -0.0074944533, w: 0.9922509}
   m_LocalPosition: {x: 0, y: 3, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3973,8 +3973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82eea8edb229cf419bec0e3981f5cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledProjectiles: []
-  projectileToPool: {fileID: 1939546332233662382, guid: fbdfd8bc5c2661549810583768fe2e79, type: 3}
+  objectToPool: {fileID: 1939546332233662382, guid: fbdfd8bc5c2661549810583768fe2e79, type: 3}
   amountToPool: 10
 --- !u!4 &1015108460
 Transform:
@@ -4003,8 +4002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217be04543bc18449b798ddff1826994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledEnemies: []
-  enemyToPool: {fileID: 6660485717233480057, guid: 0cfb4a87f3a7934498639b2dc2f28c3a, type: 3}
+  objectToPool: {fileID: 6660485717233480057, guid: 0cfb4a87f3a7934498639b2dc2f28c3a, type: 3}
   amountToPool: 64
   isPoolLoaded: 0
 --- !u!114 &1015108462
@@ -4032,8 +4030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14610bdb970df04c9b913c781794c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledPickups: []
-  pickupToPool: {fileID: 5599721895493002877, guid: 81b28c60a2223d4489f9c1c0e9761e24, type: 3}
+  objectToPool: {fileID: 5599721895493002877, guid: 81b28c60a2223d4489f9c1c0e9761e24, type: 3}
   amountToPool: 20
 --- !u!114 &1015108464
 MonoBehaviour:
@@ -7804,7 +7801,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971304772}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07568663, y: 0.0982522, z: -0.0074944533, w: 0.9922509}
+  m_LocalRotation: {x: 0.075686626, y: 0.09825221, z: -0.007494454, w: 0.9922509}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

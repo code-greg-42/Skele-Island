@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            GameObject enemy = EnemyPool.Instance.GetPooledEnemy();
+            GameObject enemy = EnemyPool.Instance.GetPooledObject();
             if (enemy != null)
             {
                 if (enemy.TryGetComponent<Enemy>(out var enemyScript))
@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnBoss()
     {
-        GameObject enemy = EnemyPool.Instance.GetPooledEnemy();
+        GameObject enemy = EnemyPool.Instance.GetPooledObject();
         if (enemy != null)
         {
             // set position to origin and raise localScale value for boss effect

@@ -4,10 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// ENCAPSULATION
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
+    // ENCAPSULATION
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI buffText;
     [SerializeField] private TextMeshProUGUI forcePullChargeDisplay;
@@ -37,6 +39,7 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
+    // ENCAPSULATION
     public void DisplayBuffMessage(string message)
     {
         if (buffMessageCoroutine != null)
