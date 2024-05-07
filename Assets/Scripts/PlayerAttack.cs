@@ -137,7 +137,6 @@ public class PlayerAttack : MonoBehaviour
     {
         playerAnim.SetTrigger("attack");
 
-        Debug.Log(projectileSize);
         Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
         Vector3 targetPoint;

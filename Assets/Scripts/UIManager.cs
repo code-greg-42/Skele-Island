@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveNumberDisplay;
     [SerializeField] private TextMeshProUGUI gameTimerText;
     [SerializeField] private TextMeshProUGUI totalTimeText;
+    [SerializeField] private TextMeshProUGUI bestTimeText;
     [SerializeField] private Image playerHealthBar;
     [SerializeField] private Image bossHealthBar;
     [SerializeField] private Image castBar;
@@ -37,6 +38,11 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        UpdateBestTimeText();
     }
 
     // ENCAPSULATION
@@ -107,6 +113,24 @@ public class UIManager : MonoBehaviour
 
         // format string in mm:ss format
         totalTimeText.text = string.Format("Total Time: {0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void UpdateBestTimeText()
+    {
+        int bestTime = DataManager.Instance.GetBestWinTime();
+
+        if (bestTime != 0)
+        {
+            int minutes = bestTime / 60;
+            int seconds = bestTime % 60;
+            // format string in mm:ss format
+            bestTimeText.text = string.Format("Best Time: {0:00}:{1:00}", minutes, seconds);
+        }
+    }
+
+    public void UpdateBestTime()
+    {
+        DataManager.Instance.SetBestWinTime(gameTimer);
     }
 
     public void DeactivateCastBar()

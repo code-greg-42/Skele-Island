@@ -102,6 +102,8 @@ public class GameManager : MonoBehaviour
         if (win)
         {
             UIManager.Instance.UpdateTotalTimeText();
+            UIManager.Instance.UpdateBestTime();
+            UIManager.Instance.UpdateBestTimeText();
             UIManager.Instance.ActivateWinMenu();
         }
         else
