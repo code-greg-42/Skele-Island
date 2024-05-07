@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour
             if (randomRoll < pickupDropRate)
             {
                 // get pickup from pickup pool
-                GameObject pickup = PickupPool.Instance.GetPooledPickup();
+                GameObject pickup = PickupPool.Instance.GetPooledObject();
                 if (pickup != null)
                 {
                     // drop pickup on dead enemy, using the pickup prefab's y position to ensure correct visibility

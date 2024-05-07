@@ -132,11 +132,11 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // ABSTRACTION
     private void Shoot()
     {
         playerAnim.SetTrigger("attack");
 
-        Debug.Log(projectileSize);
         Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
         Vector3 targetPoint;
@@ -154,7 +154,7 @@ public class PlayerAttack : MonoBehaviour
         Vector3 direction = (targetPoint - shootFromPoint.position).normalized;
 
         // get projectile from object pool
-        GameObject projectile = ProjectilePool.Instance.GetPooledProjectile();
+        GameObject projectile = ProjectilePool.Instance.GetPooledObject();
 
         if (projectile != null)
         {
@@ -184,6 +184,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // ABSTRACTION
     private void ForcePull()
     {
         Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
@@ -210,6 +211,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // ABSTRACTION
     private void ResetAttackState()
     {
         castTimeMinMet = false;
@@ -221,6 +223,7 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(ResetMainAttack());
     }
 
+    // ABSTRACTION
     private IEnumerator MoveEnemyToTarget(Enemy enemy, Vector3 targetPosition)
     {
         // set bool and method to stop movement from interfering
@@ -253,6 +256,7 @@ public class PlayerAttack : MonoBehaviour
         attackReady = true;
     }
 
+    // ABSTRACTION
     private IEnumerator DamageBuffCoroutine()
     {
         // start animation and set bool
