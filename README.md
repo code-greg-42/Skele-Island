@@ -9,6 +9,9 @@ Experience **Skele Island** on Unity Play:
 
 *play in full screen for best experience (default resolution 1920x1080)*
 
+## Gameplay Video
+[Watch Gameplay Video](https://youtu.be/fI5IujNLMXA)
+
 ## Features
 - **Third-Person Aiming and Movement**: The player character moves with standard third-person combat functionality, and is able to strafe, roll, and jump.
 - **AI Enemies**: The enemies are able to correctly move around obstacles and follow the player. They attack when in range.
