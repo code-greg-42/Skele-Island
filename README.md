@@ -5,7 +5,7 @@
 ## Play Now!
 Experience **Skele Island** on Unity Play:
 
-[Play Skele Island on Unity Play](https://play.unity.com/mg/other/builds-f9-14)
+[Play Skele Island on Unity Play](https://play.unity.com/en/games/59be5606-6843-4fff-a3f8-651f5eb0e2cb/skele-island)
 
 *play in full screen for best experience (default resolution 1920x1080)*
 
